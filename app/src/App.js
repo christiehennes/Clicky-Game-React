@@ -23,15 +23,49 @@ class App extends Component {
 
   checkClick = id => {
 
+    console.log(`Clicked ${id}` );
+
+    //Check to see if this ID is 
+    const match = this.state.clicked.includes(id)
+    console.log(match);
+
+    if(match){
+      this.resetGame();
+    }
+    else{
+      this.addPoint();
+      this.state.clicked.push(id);
+    }
+    
+    this.randomizeItems();
+
     //Use this to check the clicked item and see if they have already clicked it in the past
   }
 
   resetGame = () => {
-
+    this.setState({score: 0})
+    this.setState({clicked: []});
   }
 
   addPoint = () => {
-    
+    const newScore = this.state.score + 1;
+    this.setState({score: newScore})
+  }
+
+  randomizeItems = () => {
+
+      var input = this.state.items;
+       
+      for (var i = input.length-1; i >=0; i--) {
+       
+          var randomIndex = Math.floor(Math.random()*(i+1)); 
+          var itemAtIndex = input[randomIndex]; 
+           
+          input[randomIndex] = input[i]; 
+          input[i] = itemAtIndex;
+      }
+      this.setState({items: input});
+  
   }
 
   // Map over this.state.friends and render a FriendCard component for each friend object
@@ -43,6 +77,7 @@ class App extends Component {
         {/* Add score here */}
         {this.state.items.map(friend => (
           <FriendCard
+            checkClick={this.checkClick}
             removeFriend={this.removeFriend}
             id={friend.id}
             key={friend.id}
