@@ -5,6 +5,7 @@ import Title from "./components/Title";
 import Score from "./components/Score";
 import items from "./items.json";
 import "./App.css";
+import CardWrapper from "./components/CardWrapper";
 
 class App extends Component {
   // Setting this.state.friends to the friends json array
@@ -72,9 +73,10 @@ class App extends Component {
   render() {
     return (
       <Wrapper>
-        <Title>Clicky Game</Title>
+        <Title>National Park Clicky Game</Title>
         <Score>Score: {this.state.score}</Score>
         {/* Add score here */}
+        <CardWrapper>
         {this.state.items.map(friend => (
           <FriendCard
             checkClick={this.checkClick}
@@ -87,6 +89,8 @@ class App extends Component {
             // location={friend.location}
           />
         ))}
+        </CardWrapper>
+        
       </Wrapper>
     );
   }
